@@ -138,30 +138,11 @@ The model provided a structured set of tables and detailed calculations that mad
 
 I combined these insights with an understanding of the tradeoffs from the new chunking strategy I implemented to make a final decision on the cutoff.
 
-<!-- ── Stretch features ─────────────────────────────────────────────────────
-     Doing one? Say so here BEFORE you start. A feature this README never
-     claims earns nothing.
-     ───────────────────────────────────────────────────────────────────────── -->
-
 ---
 
 # Unit 2
 
-<!-- These sections get ADDED to what's already above. Don't delete or rewrite
-     unit 1 — the point is that someone can see what you said before you knew
-     how it went. -->
-
 ## Run Log — Before
-
-<!-- Your five criteria, three runs each. `python run_eval.py --label before`
-     runs the questions, puts the OUT_OF_SCOPE ones through the gate, and
-     writes it all into results/ for you. Targets come from criteria.md; the
-     verdict column is your call.
-
-     Criterion 3 is measured in one deterministic pass rather than three, so
-     the same number goes in all three run columns. That's correct, not lazy.
-
-     Milestone 1. -->
 
 | Criterion                                                                                             | Target | Run 1  | Run 2  | Run 3  | Verdict |
 | ----------------------------------------------------------------------------------------------------- | ------ | ------ | ------ | ------ | ------- |
@@ -170,10 +151,6 @@ I combined these insights with an understanding of the tradeoffs from the new ch
 | 3. Gate stops out-of-corpus questions                                                                 | 4 of 5 | 5 of 5 | 5 of 5 | 5 of 5 | MET     |
 | 4. No chunk is shorter than 150 characters, and every chunk contains at least two complete sentences. | 5 of 5 | 5 of 5 | 5 of 5 | 5 of 5 | MET     |
 | 5. The primary file cited in the answer is the same file where the answer is found.                   | 4 of 5 | 4 of 5 | 4 of 5 | 4 of 5 | MET     |
-
-<!-- Underneath, paste the REAL output for each criterion from one of your
-     runs — the actual text your system produced, not a description of it.
-     Name the file and function that produced it. -->
 
 ### Real Output
 
@@ -227,15 +204,6 @@ According to `guide_kestrelford.md`, booking ahead matters between May and Septe
 
 ## Verdicts
 
-<!-- MET or MISSED for each of the five, against the target you wrote last
-     unit — not a new one. Plus a sentence on how you decided. That sentence
-     matters most where it was close.
-
-     If your target said 4 of 5 and your runs came out 4, 3, 4, that's a MISS.
-     The target has to hold, not show up occasionally.
-
-     Milestone 2. -->
-
 | #   | Criterion                                                                                                                                                                           | Verdict | How I decided                                                                                                                               |
 | --- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
 | 1   | For at least 4 of my 5 test questions, the retrieved chunks include one that contains the answer.                                                                                   | MET     | Inspected chunks using python app.py retrieve for each question across all 3 runs to verify expected answer was present in the top 5 chunks |
@@ -245,24 +213,6 @@ According to `guide_kestrelford.md`, booking ahead matters between May and Septe
 | 5   | For at least 4 of my 5 test questions, the primary file cited in the answer is the same file where the answer is found.                                                             | MET     | Inspected answers from all 5 questions across 3 runs to confirm that the primary cited file matched the file where the answer was found.    |
 
 ## Diagnoses
-
-<!-- For each miss: which stage caused it, and how. The stage alone isn't
-     enough — you need the mechanism.
-
-     Not a diagnosis: "Question 3 didn't work."
-     A diagnosis:     "Question 3 asks about laundry costs. The answer is in
-                       one sentence that got split across two chunks, so
-                       neither chunk on its own contains it."
-
-     The five stages: loading → chunking → embedding → retrieval → generation.
-
-     Look for a pattern. If three misses all ask about numbers, that's one
-     problem, not three.
-
-     Missed nothing? Say so, then say honestly whether your targets were set
-     low, and which one you'd tighten and to what.
-
-     Milestone 3. -->
 
 ### Scoring Miss: Question 3
 
@@ -298,17 +248,10 @@ After the fixes, question 3 passes on all 3 runs and criterion 5 achieves 5/5 on
 
 ## What's Still Broken
 
-<!-- For each criterion still missed after your fix: what you'd do about it,
-     and why you stopped where you did.
+All five criteria are met across each run. Nothing in the current evaluation suite remains broken.
 
-     "I ran out of time" is fine if it's true. Pretending nothing is left is
-     not.
-
-     Milestone 5. -->
+If I had more time, I would address the workaround in the chunking strategy for orphaned introduction chunks. Currently, intro paragraphs are merged into the first ## section to satisfy the minimum chunk length requirement of Criterion 4. This sometimes inflates the first chunk and bundles overview details with unrelated content.
 
 ## What I'd Do Differently
 
-<!-- Knowing what you know now — which of your five criteria would you write
-     differently, and why?
-
-     Milestone 5. -->
+I would rewrite Criterion 5 to test the changes made to scorer.py. Instead of only verifying that the answer was found in a single file, I would craft questions that require synthesizing multiple chunks across several relevant files. This would verify that the scorer checks for expected values across multiple documents.
