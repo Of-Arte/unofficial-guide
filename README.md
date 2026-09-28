@@ -236,13 +236,13 @@ According to `guide_kestrelford.md`, booking ahead matters between May and Septe
 
      Milestone 2. -->
 
-| #   | Criterion | Verdict | How I decided |
-| --- | --------- | ------- | ------------- |
-| 1   |           |         |               |
-| 2   |           |         |               |
-| 3   |           |         |               |
-| 4   |           |         |               |
-| 5   |           |         |               |
+| #   | Criterion                                                                                                                                                                           | Verdict | How I decided                                                                                                                               |
+| --- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | For at least 4 of my 5 test questions, the retrieved chunks include one that contains the answer.                                                                                   | MET     | Inspected chunks using python app.py retrieve for each question across all 3 runs to verify expected answer was present in the top 5 chunks |
+| 2   | Every answer the system produces names at least one source document.                                                                                                                | MET     | Inspected each answer across all 5 questions and verified that each answer named a source document.                                         |
+| 3   | When I ask a question my documents clearly don't cover, the relevance gate stops it and the system returns "I don't have enough information about that" — in at least 4 of 5 tries. | MET     | Ran all 5 out of scope questions with run_eval.py. All 5 scored between 0.829 and 0.903, which is above the 0.65 cutoff threshold.          |
+| 4   | No chunk is shorter than 150 characters, and every chunk contains at least two complete sentences.                                                                                  | MET     | Checked length and sentence count of all 84 chunks using tools/check_criterion4.py; 0 chunks failed either criterion.                       |
+| 5   | For at least 4 of my 5 test questions, the primary file cited in the answer is the same file where the answer is found.                                                             | MET     | Inspected answers from all 5 questions across 3 runs to confirm that the primary cited file matched the file where the answer was found.    |
 
 ## Diagnoses
 
