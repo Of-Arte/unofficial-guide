@@ -264,13 +264,13 @@ According to `guide_kestrelford.md`, booking ahead matters between May and Septe
 
      Milestone 3. -->
 
-## The Improvement
+### Scoring Miss: Question 3
 
-**What I changed:**
+- **Issue:** During the evaluation runs, Question 3 (Which two types of food can be found on Pellew Sands's seafront?) was flagged as fail across all 3 runs in the `run_eval.py` table, even though the source documents and answers were correct.
+- **Diagnosis:** This was a specification and scoring error rather than a retrieval failure.
+  1. In `questions.py`, the expected string was misconfigured as `"Fish and chips"`, whereas the reference document `guide_pellewsands.md` states: `"chips and ice cream"`.
+  2. The judge function in `scorer.py` checks if the expected string appears in the answer at least once. Because this question asks for _two_ distinct types of food, the original configuration will always fail.
 
-**Why I picked it:**
-
-<!-- Connect it to a specific diagnosis above in one sentence. If you can't,
      you picked a fix because it sounded impressive. -->
 
 ### Run Log — After
