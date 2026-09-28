@@ -271,29 +271,30 @@ According to `guide_kestrelford.md`, booking ahead matters between May and Septe
   1. In `questions.py`, the expected string was misconfigured as `"Fish and chips"`, whereas the reference document `guide_pellewsands.md` states: `"chips and ice cream"`.
   2. The judge function in `scorer.py` checks if the expected string appears in the answer at least once. Because this question asks for _two_ distinct types of food, the original configuration will always fail.
 
-     you picked a fix because it sounded impressive. -->
+## The Improvement
+
+**What I changed:**
+
+1. Updated `questions.py` to the corrected answer for Question 3 as `["chips", "ice cream"]` rather than `"Fish and chips"`.
+1. Updated `scorer.py` to support checking if all comma separated strings appear in the generated answer.
+
+**Why I picked it:**
+
+I picked this fix because question 3 failed evaluation across all 3 runs, which gives a false impression of retriaval failure, when in reality retrieval worked as expected. The fix was minimal and allows for more complex question requirements moving forward.
 
 ### Run Log — After
 
-<!-- Same format, same five criteria, three runs each.
-     `python run_eval.py --label after` -->
-
-| Criterion                              | Target | Run 1 | Run 2 | Run 3 | Verdict |
-| -------------------------------------- | ------ | ----- | ----- | ----- | ------- |
-| 1. Retrieved chunk contains the answer | 4 of 5 |       |       |       |         |
-| 2. Every answer names a source         | 5 of 5 |       |       |       |         |
-| 3. Gate stops out-of-corpus questions  | 4 of 5 |       |       |       |         |
-| 4.                                     |        |       |       |       |         |
-| 5.                                     |        |       |       |       |         |
+| Criterion                                                                                             | Target | Run 1  | Run 2  | Run 3  | Verdict |
+| ----------------------------------------------------------------------------------------------------- | ------ | ------ | ------ | ------ | ------- |
+| 1. Retrieved chunk contains the answer                                                                | 4 of 5 | 5 of 5 | 5 of 5 | 5 of 5 | MET     |
+| 2. Every answer names a source                                                                        | 5 of 5 | 5 of 5 | 5 of 5 | 5 of 5 | MET     |
+| 3. Gate stops out-of-corpus questions                                                                 | 4 of 5 | 5 of 5 | 5 of 5 | 5 of 5 | MET     |
+| 4. No chunk is shorter than 150 characters, and every chunk contains at least two complete sentences. | 5 of 5 | 5 of 5 | 5 of 5 | 5 of 5 | MET     |
+| 5. The primary file cited in the answer is the same file where the answer is found.                   | 4 of 5 | 5 of 5 | 5 of 5 | 5 of 5 | MET     |
 
 **Did it help?**
 
-<!-- Say plainly whether it did, and how you know. If it made things worse,
-     say that — a change that backfired, honestly reported, earns full credit
-     and is more interesting than one that worked. What matters is that you can
-     tell.
-
-     Milestone 4. -->
+After the fixes, question 3 passes on all 3 runs and criterion 5 achieves 5/5 on all 3 runs.
 
 ## What's Still Broken
 
