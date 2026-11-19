@@ -1,6 +1,42 @@
 # The Unofficial Guide
 
-Dearte Hammonds - City Guides
+A retrieval-augmented generation (RAG) application that answers questions
+about a fictional region using a collection of 14 city-guide documents.
+
+The system retrieves relevant passages from a vector database, generates
+answers with source-document citations, and declines questions when the
+retrieved material falls outside its relevance threshold.
+
+## Features
+
+- Section-aware Markdown chunking that preserves document and topic context.
+- Vector search over guides covering travel, dining, accommodation,
+  accessibility, and local activities.
+- Source-document citations in generated answers.
+- A relevance gate for declining unsupported questions.
+- Evaluation of retrieval coverage, citation accuracy, chunk structure,
+  and out-of-scope refusal.
+
+## Design focus
+
+This project explores how document structure and retrieval thresholds
+affect grounded answers. Custom chunking follows Markdown sections rather
+than fixed character windows, while the relevance cutoff was selected
+by comparing retrieval distances for in-scope and out-of-scope questions.
+
+The evaluation also documents a scoring bug that incorrectly marked
+correct answers as failures, and the changes made to the reference
+answers and scorer to resolve it.
+
+## Run locally
+
+See [RUNNING.md](RUNNING.md) for setup and execution instructions.
+
+## Project origins
+
+Built for CodePath AI201 from The Unofficial Guide
+starter. The sections below document the implementation decisions,
+evaluation results, AI assistance, and remaining limitations.
 
 ---
 
